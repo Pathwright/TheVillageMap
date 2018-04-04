@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 const SideBarContainer = styled.div`
 	background-color: #303541;
+	height: 100%;
 	color: white;
 	.header img {
 		width: 100%;
@@ -56,28 +57,31 @@ const SideBar = props => {
 				<h1>{props.props.name}</h1>
 				<p className="address">{props.props.address}</p>
 				<div className="stories-wrapper">
-					<h2>Stories</h2>
-					{props.props.stories.map((story, id) => {
-						return (
-							<div className="story" key={id}>
-								<h3>{story.title}</h3>
-								<p className="story-date">{story.startDate}</p>
-								<p>{story.story}</p>
-								{story.people.map((person, id) => {
-									return (
-										<div className="person" key={id}>
-											<img src={person.image[0].url} />
-											<div className="story-text">
-												<h4>{person.name}</h4>
-												<p>{person.bio}</p>
-											</div>
-										</div>
-									);
-								})}
-								{story.sourceUrl ? <a href={story.sourceUrl}>Source</a> : null}
-							</div>
-						);
-					})}
+					{props.props.stories.length > 0
+						? props.props.stories.map((story, id) => {
+								return (
+									<div className="story" key={id}>
+										<h3>{story.title}</h3>
+										<p className="story-date">{story.startDate}</p>
+										<p>{story.story}</p>
+										{story.people.map((person, id) => {
+											return (
+												<div className="person" key={id}>
+													<img src={person.image[0].url} />
+													<div className="story-text">
+														<h4>{person.name}</h4>
+														<p>{person.bio}</p>
+													</div>
+												</div>
+											);
+										})}
+										{story.sourceUrl ? (
+											<a href={story.sourceUrl}>Source</a>
+										) : null}
+									</div>
+								);
+							})
+						: "No Story Available"}
 				</div>
 			</div>
 		</SideBarContainer>
