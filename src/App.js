@@ -1,51 +1,31 @@
 import React from "react";
 import gql from "graphql-tag";
 import { compose, graphql } from "react-apollo";
-import { Drawer, Map, SideBar } from "./components";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Map, Place, SideBar } from "./components";
+import Dock from "react-dock";
 
 class App extends React.Component {
-	state = {
-		selectedPlace: null
-	};
-
 	render() {
 		return (
-			<div>
-				<Map
-					places={this.props.data.Places}
-					onSelectPlace={place => this.setState({ selectedPlace: place })}
-				/>
-				<Drawer
-					open={!!this.state.selectedPlace}
-					onChange={isOpen =>
-						!isOpen && this.setState({ selectedPlace: null })
-					}>
-					{this.state.selectedPlace && (
-						<code>
-							<SideBar>{this.state.selectedPlace}</SideBar>
-						</code>
-					)}
-				</Drawer>
-			</div>
+			<Router>
+				<div>
+					<Route path="/" component={Map} />
+					<Route
+						path="/p/:placeId"
+						children={({ match, history }) => (
+							<Dock
+								position="right"
+								isVisible={!!match}
+								onVisibleChange={() => !!match && history.push("/")}>
+								{match && <Place id={match.params.placeId} />}
+							</Dock>
+						)}
+					/>
+				</div>
+			</Router>
 		);
 	}
 }
 
-export default graphql(
-	gql`
-		query {
-			Places {
-				name
-				id
-				address
-				latitude
-				longitude
-				stories {
-					title
-					story
-				}
-			}
-		}
-	`,
-	{}
-)(App);
+export default App;
