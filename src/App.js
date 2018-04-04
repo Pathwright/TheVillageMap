@@ -1,7 +1,9 @@
 import React from "react"
 import gql from "graphql-tag"
 import { compose, graphql } from "react-apollo"
-import { Drawer, Map } from "./components"
+import { BrowserRouter as Router, Route, Link } from "react-router-dom"
+import { Map } from "./components"
+import Dock from "react-dock"
 
 class App extends React.Component {
   state = {
@@ -10,41 +12,24 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <Map
-          places={this.props.data.Places}
-          onSelectPlace={place => this.setState({ selectedPlace: place })}
-        />
-        <Drawer
-          open={!!this.state.selectedPlace}
-          onChange={isOpen =>
-            !isOpen && this.setState({ selectedPlace: null })}>
-          {this.state.selectedPlace && (
-            <code>
-              <pre>{JSON.stringify(this.state.selectedPlace, null, 2)}</pre>
-            </code>
-          )}
-        </Drawer>
-      </div>
+      <Router>
+        <div>
+          <Route path="/" component={Map} />
+          <Route
+            path="/p/:id"
+            children={({ match, history }) => (
+              <Dock
+                position="right"
+                isVisible={!!match}
+                onVisibleChange={() => !!match && history.push("/")}>
+                "tes"
+              </Dock>
+            )}
+          />
+        </div>
+      </Router>
     )
   }
 }
 
-export default graphql(
-  gql`
-    query {
-      Places {
-        name
-        id
-        address
-        latitude
-        longitude
-        stories {
-          title
-          story
-        }
-      }
-    }
-  `,
-  {},
-)(App)
+export default App

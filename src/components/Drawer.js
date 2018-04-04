@@ -1,15 +1,15 @@
 import React from "react"
-import MotionDrawer from "react-motion-drawer"
+import PropTypes from "prop-types"
+import Dock from "react-dock"
 
-const Drawer = props => {
+const Drawer = ({ children, history, open }) => {
   return (
-    <div>
-      <MotionDrawer
-        {...props}
-        drawerStyle={{ backgroundColor: "white" }}
-        right
-      />
-    </div>
+    <Dock
+      isVisible={open}
+      onVisibleChange={isVisible => !isVisible && history.push("/")}
+      position="right">
+      {children}
+    </Dock>
   )
 }
 
