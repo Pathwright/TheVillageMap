@@ -37,18 +37,24 @@ const FAQS = props => {
   ) : null
 }
 
-export default compose(
-  withData,
-  graphql(
-    gql`
-      query {
-        FAQS {
-          id
-          question
-          answer
-        }
-      }
-    `,
-    {},
-  ),
-)(FAQS)
+export default graphql(
+  gql`
+		query() {
+			FAQS {
+				question
+        answer
+			
+			}
+		}
+	`,
+  {
+    options: ({ id }) => ({
+      variables: { id }
+    }),
+    props: ({ data }) => ({
+      error: data.error,
+      loading: data.loading,
+      place: data.Place
+    })
+  }
+)(Place)
