@@ -10,16 +10,21 @@ class App extends React.Component {
 		return (
 			<Router>
 				<div>
-					<Route path="/" component={Map} />
 					<Route
 						path="/p/:placeId"
 						children={({ match, history }) => (
-							<Dock
-								position="right"
-								isVisible={!!match}
-								onVisibleChange={() => !!match && history.push("/")}>
-								{match && <Place id={match.params.placeId} />}
-							</Dock>
+							<React.Fragment>
+								<Map
+									activePlaceId={match && match.params.placeId}
+									onSelectPlace={placeId => history.push(`/p/${placeId}`)}
+								/>
+								<Dock
+									position="right"
+									isVisible={!!match}
+									onVisibleChange={() => !!match && history.push("/")}>
+									{match && <Place id={match.params.placeId} />}
+								</Dock>
+							</React.Fragment>
 						)}
 					/>
 				</div>
