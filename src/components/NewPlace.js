@@ -2,9 +2,36 @@ import React from "react"
 import styled from "styled-components"
 
 const Box = styled.div`
-  background: white;
-  padding: 20;
-  width: 300px;
+  padding: 10px;
+  background-color: #303541;
+  color: white;
+
+  h2 {
+    margin: 0;
+    font-weight: normal;
+  }
+
+  footer {
+    display: flex;
+    align-items: baseline;
+
+    a {
+      margin-right: 10px;
+      color: white;
+      font-size: 16px;
+    }
+  }
+`
+
+const Circle = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  transform: translate3d(-100%, -100%, 0);
+  border-radius: 100%;
+  border: 3px solid #303541;
 `
 
 const NewPlace = ({ latLng, onClose }) => {
@@ -14,11 +41,16 @@ const NewPlace = ({ latLng, onClose }) => {
 
   return (
     <Box>
-      <h1>Do you want to suggest a new place to feature?</h1>
-      <a target="_blank" href={formUrl}>
-        Yes
-      </a>
-      <button onClick={onClose}>No</button>
+      <Circle />
+      <h2>Submit a story for this location?</h2>
+      <footer>
+        <a target="_blank" href={formUrl}>
+          Yes
+        </a>
+        <a href="javascript:void()" onClick={onClose}>
+          Cancel
+        </a>
+      </footer>
     </Box>
   )
 }
