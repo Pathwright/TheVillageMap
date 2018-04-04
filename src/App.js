@@ -53,6 +53,8 @@ class App extends React.Component {
                 />
                 <Dock
                   position="right"
+                  size={window.innerWidth < 480 ? 0.9 : 400}
+                  fluid={window.innerWidth < 480}
                   isVisible={!!match}
                   onVisibleChange={() => !!match && history.push("/")}>
                   {match && <Place id={match.params.placeId} />}
