@@ -9,7 +9,6 @@ class App extends React.Component {
 	};
 
 	render() {
-		console.log("props", this.props);
 		return (
 			<div>
 				<Map
@@ -21,7 +20,11 @@ class App extends React.Component {
 					onChange={isOpen =>
 						!isOpen && this.setState({ selectedPlace: null })
 					}>
-					{this.state.selectedPlace && <SideBar>{this.props}</SideBar>}
+					{this.state.selectedPlace && (
+						<code>
+							<SideBar>{this.state.selectedPlace}</SideBar>
+						</code>
+					)}
 				</Drawer>
 			</div>
 		);
