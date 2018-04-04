@@ -4,14 +4,20 @@ import {
   withGoogleMap,
   GoogleMap,
   Marker,
+  OverlayView,
 } from "react-google-maps"
 import gql from "graphql-tag"
 import { compose, graphql } from "react-apollo"
 import { withRouter } from "react-router-dom"
 import mapStyles from "../map-styles.json"
+import NewPlace from "./NewPlace"
 import { GOOGLE_MAPS_API_KEY, VILLAGE_MAP_CENTER } from "../constants"
 
 class Map extends React.Component {
+  state = {
+    suggestingLatLng: null,
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.activePlaceId) {
       if (
@@ -34,24 +40,37 @@ class Map extends React.Component {
   }
 
   render() {
-    const { places, onSelectPlace } = this.props
+    const { places, onSelectPlace, onSuggestPlace } = this.props
     return (
-      <GoogleMap
-        ref={m => (this.map = m)}
-        defaultZoom={15}
-        defaultCenter={VILLAGE_MAP_CENTER}
-        defaultOptions={{ styles: mapStyles, disableDefaultUI: true }}>
-        {places.map(place => (
-          <Marker
-            key={place.id}
-            onClick={() => onSelectPlace(place.id)}
-            position={{
-              lat: Number(place.latitude),
-              lng: Number(place.longitude),
-            }}
-          />
-        ))}
-      </GoogleMap>
+      <div>
+        <GoogleMap
+          ref={m => (this.map = m)}
+          defaultZoom={15}
+          onClick={({ latLng }) => this.setState({ suggestingLatLng: latLng })}
+          defaultCenter={VILLAGE_MAP_CENTER}
+          defaultOptions={{ styles: mapStyles, disableDefaultUI: true }}>
+          {places.map(place => (
+            <Marker
+              key={place.id}
+              onClick={() => onSelectPlace(place.id)}
+              position={{
+                lat: Number(place.latitude),
+                lng: Number(place.longitude),
+              }}
+            />
+          ))}
+          {this.state.suggestingLatLng && (
+            <OverlayView
+              position={this.state.suggestingLatLng}
+              mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}>
+              <NewPlace
+                latLng={this.state.suggestingLatLng}
+                onClose={() => this.setState({ suggestingLatLng: null })}
+              />
+            </OverlayView>
+          )}
+        </GoogleMap>
+      </div>
     )
   }
 }
