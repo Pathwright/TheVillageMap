@@ -11,24 +11,49 @@ import { withRouter } from "react-router-dom"
 import mapStyles from "../map-styles.json"
 import { GOOGLE_MAPS_API_KEY, VILLAGE_MAP_CENTER } from "../constants"
 
-const Map = ({ places, history }) => {
-  return (
-    <GoogleMap
-      defaultZoom={15}
-      defaultCenter={VILLAGE_MAP_CENTER}
-      defaultOptions={{ styles: mapStyles, disableDefaultUI: true }}>
-      {places.map(place => (
-        <Marker
-          key={place.id}
-          onClick={() => history.push(`/p/${place.id}`)}
-          position={{
+class Map extends React.Component {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.activePlaceId) {
+      if (
+        nextProps.activePlaceId !== this.props.activePlaceId ||
+        nextProps.places.length !== this.props.places.length
+      ) {
+        const place = nextProps.places.find(
+          p => p.id === nextProps.activePlaceId,
+        )
+        if (place) {
+          this.map.panTo({
             lat: Number(place.latitude),
             lng: Number(place.longitude),
-          }}
-        />
-      ))}
-    </GoogleMap>
-  )
+          })
+        }
+      }
+    } else {
+      this.map.panTo(VILLAGE_MAP_CENTER)
+    }
+  }
+
+  render() {
+    const { places, onSelectPlace } = this.props
+    return (
+      <GoogleMap
+        ref={m => (this.map = m)}
+        defaultZoom={15}
+        defaultCenter={VILLAGE_MAP_CENTER}
+        defaultOptions={{ styles: mapStyles, disableDefaultUI: true }}>
+        {places.map(place => (
+          <Marker
+            key={place.id}
+            onClick={() => onSelectPlace(place.id)}
+            position={{
+              lat: Number(place.latitude),
+              lng: Number(place.longitude),
+            }}
+          />
+        ))}
+      </GoogleMap>
+    )
+  }
 }
 
 const withPlaces = graphql(
