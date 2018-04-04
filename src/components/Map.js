@@ -52,7 +52,10 @@ class Map extends React.Component {
           {places.map(place => (
             <Marker
               key={place.id}
-              onClick={() => onSelectPlace(place.id)}
+              onClick={() => {
+                this.setState({ suggestingLatLng: null })
+                onSelectPlace(place.id)
+              }}
               position={{
                 lat: Number(place.latitude),
                 lng: Number(place.longitude),
