@@ -35,8 +35,9 @@ const Wrap = styled.div`
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  box-shadow: rgba(0, 0, 0, 0.19) 8px 12px 40px,
-    rgba(0, 0, 0, 0.23) 8px 6px 12px;
+  > div:nth-child(2) > div:nth-child(2) {
+    -webkit-overflow-scrolling: touch;
+  }
 `
 const Footer = styled.footer`
   text-align: center;
@@ -90,8 +91,10 @@ class App extends React.Component {
                 <Dock
                   dockStyle={{
                     backgroundColor: "#303541",
-                    color: "white"
+                    color: "white",
+                    "-webkit-overflow-scrolling": "touch"
                   }}
+                  className="Doct__container"
                   position="right"
                   size={window.innerWidth < 480 ? 0.9 : 400}
                   fluid={window.innerWidth < 480}
