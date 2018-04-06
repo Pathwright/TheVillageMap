@@ -5,6 +5,7 @@ import { compose, graphql } from "react-apollo"
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"
 import styled from "styled-components"
 import {
+  AirtableFormEmbed,
   DockRoute,
   IntroOverlay,
   FAQS,
@@ -91,12 +92,14 @@ class App extends React.Component {
             children={({ match, history }) => (
               <Map
                 activePlaceId={match && match.params.placeId}
-                onSelectPlace={placeId => history.push(`/p/${placeId}`)}
+                onSelectPlace={placeUrl => history.push(placeUrl)}
+                onSubmitPlace={formUrl => history.push(formUrl)}
               />
             )}
           />
           <DockRoute path="/p/:placeId" component={Place} />
           <DockRoute path="/faqs" component={FAQS} />
+          <DockRoute path="/submit" component={AirtableFormEmbed} />
           <Footer>
             Built by{" "}
             <a href="https://www.pathwright.com" target="_blank">

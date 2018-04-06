@@ -1,3 +1,4 @@
+export { default as AirtableFormEmbed } from "./AirtableFormEmbed"
 export { default as DockRoute } from "./DockRoute"
 export { default as IntroOverlay } from "./IntroOverlay"
 export { default as Map } from "./Map"
