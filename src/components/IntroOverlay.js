@@ -3,23 +3,27 @@ import styled from "styled-components"
 import { Button } from "./ui"
 
 const Modal = styled.div`
+  z-index: 999999999;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   color: white;
-  padding: 50px 20px;
+  padding: 20px;
   background-color: rgba(48, 53, 65, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 `
 
 const Content = styled.div`
   width: 100%;
   max-width: 500px;
-  margin: 0 auto;
+  margin: 50px auto;
   text-align: center;
   text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
   background-color: #3c424f;
