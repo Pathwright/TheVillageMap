@@ -94,15 +94,15 @@ class App extends React.Component {
           </Brand>
 
           <Route
-            path="/p/:placeId"
+            path="/place/:placeId"
             children={({ match, history }) => (
               <Map
                 activePlaceId={match && match.params.placeId}
-                onSelectPlace={placeId => history.push(`/p/${placeId}`)}
+                onSelectPlace={placeId => history.push(`/place/${placeId}`)}
               />
             )}
           />
-          <DockRoute path="/p/:placeId" component={Place} />
+          <DockRoute path="/place/:placeId" component={Place} />
           <DockRoute path="/faqs" component={FAQS} />
           <Footer>
             Built by{" "}
