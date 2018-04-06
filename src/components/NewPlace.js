@@ -33,8 +33,8 @@ const Circle = styled.div`
   border: 3px solid #303541;
 `
 
-const NewPlace = ({ latLng, onClose }) => {
-  let formUrl = "https://airtable.com/shrFV5fChBDr5FDxB"
+const NewPlace = ({ latLng, onClose, onSubmit }) => {
+  let formUrl = "/suggest"
   formUrl += "?prefill_Latitude=" + latLng.lat()
   formUrl += "&prefill_Longitude=" + latLng.lng()
 
@@ -43,12 +43,11 @@ const NewPlace = ({ latLng, onClose }) => {
       <Circle />
       <h2 style={{ marginBottom: 10 }}>Submit a story for this location?</h2>
       <footer>
-        <Button onClick={() => (window.location = formUrl)}>Yes</Button>
+        <Button onClick={() => onSubmit(formUrl)}>Yes</Button>
         <a
           href="javascript:void()"
           onClick={onClose}
-          style={{ color: "rgba(255,255,255,.6)", marginLeft: 10 }}
-        >
+          style={{ color: "rgba(255,255,255,.6)", marginLeft: 10 }}>
           Cancel
         </a>
       </footer>

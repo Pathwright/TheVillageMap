@@ -1,6 +1,7 @@
 import React from "react"
 import gql from "graphql-tag"
 import { graphql } from "react-apollo"
+import { Link } from "react-router-dom"
 import Carousel from "nuka-carousel"
 import pluralize from "pluralize"
 import styled from "styled-components"
@@ -177,7 +178,7 @@ class Place extends React.Component {
     }
 
     if (place) {
-      let formUrl = "https://airtable.com/shrFV5fChBDr5FDxB"
+      let formUrl = "/suggest"
       formUrl += "?prefill_Location=" + place.address
       formUrl += "&prefill_Latitude=" + place.latitude
       formUrl += "&prefill_Longitude=" + place.longitude
@@ -205,9 +206,9 @@ class Place extends React.Component {
               <p style={{ textAlign: "center" }}>
                 Know something about<br /> {place.name}?
               </p>
-              <a className="story-button" href={formUrl} target="_blank">
+              <Link className="story-button" to={formUrl}>
                 Suggest a story
-              </a>
+              </Link>
             </div>
 
             {stories.length ? (
@@ -216,9 +217,8 @@ class Place extends React.Component {
                   style={{
                     display: "inline-block",
                     textAlign: "center",
-                    width: 20
-                  }}
-                >
+                    width: 20,
+                  }}>
                   {stories.length}
                 </span>
                 {pluralize("story", stories.length, false)} so far
@@ -301,12 +301,12 @@ export default graphql(
   `,
   {
     options: ({ match }) => ({
-      variables: { id: match.params.placeId }
+      variables: { id: match.params.placeId },
     }),
     props: ({ data }) => ({
       error: data.error,
       loading: data.loading,
-      place: data.Place
-    })
-  }
+      place: data.Place,
+    }),
+  },
 )(Place)

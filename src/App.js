@@ -5,12 +5,13 @@ import { compose, graphql } from "react-apollo"
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"
 import styled from "styled-components"
 import {
+  AirtableFormEmbed,
   DockRoute,
   IntroOverlay,
   FAQS,
   Map,
   Place,
-  SideBar
+  SideBar,
 } from "./components"
 import Dock from "react-dock"
 
@@ -68,7 +69,7 @@ const Footer = styled.footer`
 
 class App extends React.Component {
   state = {
-    showIntro: false
+    showIntro: false,
   }
 
   componentWillMount() {
@@ -92,18 +93,19 @@ class App extends React.Component {
             <img src={require("./assets/logo-blue.svg")} />
             <h1>The Village Map</h1>
           </Brand>
-
           <Route
-            path="/place/:placeId"
+            path="/p/:placeId"
             children={({ match, history }) => (
               <Map
                 activePlaceId={match && match.params.placeId}
-                onSelectPlace={placeId => history.push(`/place/${placeId}`)}
+                onSelectPlace={placeUrl => history.push(placeUrl)}
+                onSubmitPlace={formUrl => history.push(formUrl)}
               />
             )}
           />
-          <DockRoute path="/place/:placeId" component={Place} />
+          <DockRoute path="/p/:placeId" component={Place} />
           <DockRoute path="/faqs" component={FAQS} />
+          <DockRoute path="/suggest" component={AirtableFormEmbed} />
           <Footer>
             Built by{" "}
             <a href="https://www.pathwright.com" target="_blank">

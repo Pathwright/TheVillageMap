@@ -23,7 +23,6 @@ class Map extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps.activePlaceId)
     if (nextProps.activePlaceId) {
       if (
         nextProps.activePlaceId !== this.props.activePlaceId ||
@@ -59,7 +58,7 @@ class Map extends React.Component {
               key={place.id}
               onClick={() => {
                 this.setState({ suggestingLatLng: null })
-                this.props.onSelectPlace(place.id)
+                this.props.onSelectPlace(`/p/${place.id}`)
               }}
               icon={{
                 path: google.maps.SymbolPath.CIRCLE,
@@ -83,6 +82,7 @@ class Map extends React.Component {
             >
               <NewPlace
                 latLng={this.state.suggestingLatLng}
+                onSubmit={formUrl => this.props.onSubmitPlace(formUrl)}
                 onClose={() => this.setState({ suggestingLatLng: null })}
               />
             </OverlayView>
