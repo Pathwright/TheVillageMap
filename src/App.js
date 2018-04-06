@@ -3,7 +3,14 @@ import gql from "graphql-tag"
 import { compose, graphql } from "react-apollo"
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"
 import styled from "styled-components"
-import { IntroOverlay, Map, Place, SideBar } from "./components"
+import {
+  DockRoute,
+  IntroOverlay,
+  FAQS,
+  Map,
+  Place,
+  SideBar,
+} from "./components"
 import Dock from "react-dock"
 
 const Container = styled.div`
@@ -46,37 +53,25 @@ class App extends React.Component {
           <Route
             path="/p/:placeId"
             children={({ match, history }) => (
-              <Container>
-                <Map
-                  activePlaceId={match && match.params.placeId}
-                  onSelectPlace={placeId => history.push(`/p/${placeId}`)}
-                />
-                <Dock
-                  dockStyle={{
-                    backgroundColor: "#303541",
-                    color: "white",
-                  }}
-                  position="right"
-                  size={window.innerWidth < 480 ? 0.9 : 400}
-                  fluid={window.innerWidth < 480}
-                  isVisible={!!match}
-                  onVisibleChange={() => !!match && history.push("/")}>
-                  {match && <Place id={match.params.placeId} />}
-                </Dock>
-                <Footer>
-                  Built by{" "}
-                  <a href="https://www.pathwright.com" target="_blank">
-                    The Pathwright Crew
-                  </a>{" "}
-                  for{" "}
-                  <a href="https://goodfour.us" target="_blank">
-                    Good Four
-                  </a>{" "}
-                  2018
-                </Footer>
-              </Container>
+              <Map
+                activePlaceId={match && match.params.placeId}
+                onSelectPlace={placeId => history.push(`/p/${placeId}`)}
+              />
             )}
           />
+          <DockRoute path="/p/:placeId" component={Place} />
+          <DockRoute path="/faqs" component={FAQS} />
+          <Footer>
+            Built by{" "}
+            <a href="https://www.pathwright.com" target="_blank">
+              The Pathwright Crew
+            </a>{" "}
+            for{" "}
+            <a href="https://goodfour.us" target="_blank">
+              Good Four
+            </a>{" "}
+            2018
+          </Footer>
           {this.state.showIntro && (
             <IntroOverlay onClose={this.handleEnterSite} />
           )}

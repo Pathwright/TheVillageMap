@@ -5,7 +5,7 @@ import Carousel from "nuka-carousel"
 import styled from "styled-components"
 import moment from "moment"
 
-const Loading = styled.div`
+const Center = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
@@ -38,19 +38,14 @@ const SideBarContainer = styled.div`
     color: #97cc68;
   }
   .story-button {
-    display: block;
-    color: #303541;
+    font-size: 18px;
     font-weight: bold;
-    text-align: center;
-    padding: 20px;
-    border-radius: 10px;
-    background-color: #97cc68;
-    text-decoration: none;
   }
   .stories {
     margin-top: 20px;
     margin-bottom: 10px;
     text-transform: uppercase;
+    font-weight: bold;
   }
   .stories-wrapper {
     padding-left: 40px;
@@ -107,6 +102,12 @@ const SideBarContainer = styled.div`
     margin: 0;
     color: #6a7384;
   }
+  .story-source {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #97cc68;
+  }
   .person {
     display: flex;
     flex-direction: row;
@@ -139,11 +140,11 @@ const SideBarContainer = styled.div`
 
 const Place = ({ error, loading, place }) => {
   if (error) {
-    return "An unexpected error occurred."
+    return <Center>An unexpected error occurred.</Center>
   }
 
   if (loading) {
-    return <Loading>Loading...</Loading>
+    return <Center>Loading...</Center>
   }
 
   if (place) {
@@ -186,7 +187,12 @@ const Place = ({ error, loading, place }) => {
                     )
                   })}
                   {story.sourceUrl ? (
-                    <a href={story.sourceUrl}>Source</a>
+                    <div className="story-source">
+                      Source:{" "}
+                      <a href={story.sourceUrl} target="_blank">
+                        {story.sourceUrl}
+                      </a>
+                    </div>
                   ) : null}
                 </div>
               ))}
@@ -245,8 +251,8 @@ export default graphql(
     }
   `,
   {
-    options: ({ id }) => ({
-      variables: { id },
+    options: ({ match }) => ({
+      variables: { id: match.params.placeId },
     }),
     props: ({ data }) => ({
       error: data.error,
