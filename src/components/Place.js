@@ -197,25 +197,27 @@ class Place extends React.Component {
             ) : null}
             <div className="story-prompt">
               <p style={{ textAlign: "center" }}>
-                Know something about {place.name}?
+                Know something about<br /> {place.name}?
               </p>
               <a className="story-button" href={formUrl} target="_blank">
                 Suggest a story
               </a>
             </div>
 
-            <div className="stories">
-              <span
-                style={{
-                  display: "inline-block",
-                  textAlign: "center",
-                  width: 20
-                }}
-              >
-                {stories.length}
-              </span>
-              {pluralize("story", stories.length, false)} so far
-            </div>
+            {stories.length ? (
+              <div className="stories">
+                <span
+                  style={{
+                    display: "inline-block",
+                    textAlign: "center",
+                    width: 20
+                  }}
+                >
+                  {stories.length}
+                </span>
+                {pluralize("story", stories.length, false)} so far
+              </div>
+            ) : null}
             <div className="stories-wrapper">
               {stories.length > 0 &&
                 stories.map((story, id) => {
@@ -248,9 +250,6 @@ class Place extends React.Component {
                   )
                 })}
             </div>
-            {place.stories.length === 0 && (
-              <div className="story-blank">No stories yet</div>
-            )}
           </div>
         </SideBarContainer>
       )
