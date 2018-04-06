@@ -44,8 +44,13 @@ class Map extends React.Component {
   }
 
   render() {
+    const { activePlaceId } = this.props
+
+    const places = activePlaceId
+      ? this.props.places.filter(p => p.id === activePlaceId)
+      : this.props.places
     return (
-      <div style={{ transform: "translate3d(0,0,0,)" }}>
+      <div>
         <GoogleMap
           ref={m => (this.map = m)}
           defaultZoom={15}
@@ -53,7 +58,7 @@ class Map extends React.Component {
           defaultCenter={VILLAGE_MAP_CENTER}
           defaultOptions={{ styles: mapStyles, disableDefaultUI: true }}
         >
-          {this.props.places.map(place => (
+          {places.map(place => (
             <Marker
               key={place.id}
               onClick={() => {
