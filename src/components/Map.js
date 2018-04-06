@@ -8,7 +8,7 @@ import {
   GoogleMap,
   Marker,
   Circle,
-  OverlayView
+  OverlayView,
 } from "react-google-maps"
 import gql from "graphql-tag"
 import { compose, graphql } from "react-apollo"
@@ -19,7 +19,7 @@ import { GOOGLE_MAPS_API_KEY, VILLAGE_MAP_CENTER } from "../constants"
 
 class Map extends React.Component {
   state = {
-    suggestingLatLng: null
+    suggestingLatLng: null,
   }
 
   componentWillReceiveProps(nextProps) {
@@ -29,12 +29,12 @@ class Map extends React.Component {
         nextProps.places.length !== this.props.places.length
       ) {
         const place = nextProps.places.find(
-          p => p.id === nextProps.activePlaceId
+          p => p.id === nextProps.activePlaceId,
         )
         if (place) {
           this.map.panTo({
             lat: Number(place.latitude),
-            lng: Number(place.longitude)
+            lng: Number(place.longitude),
           })
         }
       }
@@ -56,8 +56,7 @@ class Map extends React.Component {
           defaultZoom={15}
           onClick={({ latLng }) => this.setState({ suggestingLatLng: latLng })}
           defaultCenter={VILLAGE_MAP_CENTER}
-          defaultOptions={{ styles: mapStyles, disableDefaultUI: true }}
-        >
+          defaultOptions={{ styles: mapStyles, disableDefaultUI: true }}>
           {places.map(place => (
             <Marker
               key={place.id}
@@ -72,19 +71,18 @@ class Map extends React.Component {
                 strokeOpacity: 1.0,
                 strokeColor: "#303541",
                 strokeWeight: 3.0,
-                scale: 10.0
+                scale: 10.0,
               }}
               position={{
                 lat: Number(place.latitude),
-                lng: Number(place.longitude)
+                lng: Number(place.longitude),
               }}
             />
           ))}
           {this.state.suggestingLatLng && (
             <OverlayView
               position={this.state.suggestingLatLng}
-              mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
-            >
+              mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}>
               <NewPlace
                 latLng={this.state.suggestingLatLng}
                 onSubmit={formUrl => this.props.onSubmitPlace(formUrl)}
@@ -116,9 +114,9 @@ const withPlaces = graphql(
   `,
   {
     props: ({ data }) => ({
-      places: data.Places || []
-    })
-  }
+      places: data.Places || [],
+    }),
+  },
 )
 
 const ConnectedMap = compose(withPlaces, withScriptjs, withGoogleMap)(Map)
@@ -127,7 +125,7 @@ ConnectedMap.defaultProps = {
   googleMapURL: `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&v=3.exp&libraries=geometry,drawing`,
   containerElement: <div style={{ height: `100vh`, width: "100%" }} />,
   loadingElement: <div style={{ height: `100%`, width: "100%" }} />,
-  mapElement: <div style={{ height: `100%`, width: "100%" }} />
+  mapElement: <div style={{ height: `100%`, width: "100%" }} />,
 }
 
 export default ConnectedMap
