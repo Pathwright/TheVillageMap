@@ -46,7 +46,7 @@ const Footer = styled.div`
 
 class App extends React.Component {
   state = {
-    showIntro: true
+    showIntro: false
   }
 
   componentWillMount() {
