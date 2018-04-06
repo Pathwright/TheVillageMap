@@ -27,6 +27,7 @@ const Brand = styled.div`
   left: 4px;
   top: 4px;
   padding: 5px;
+  height: 40px;
   background-color: #97cc68;
   display: flex;
   align-items: center;
@@ -34,14 +35,14 @@ const Brand = styled.div`
   img {
     width: 30px;
   }
-  h1 {
+  h1,
+  a {
     position: relative;
     font-size: 16px;
     font-family: "Mallory Black";
     margin: 0px 5px;
     color: #303541;
-
-    /* border-radius: 8px; */
+    text-decoration: none;
   }
 `
 
@@ -64,6 +65,7 @@ const Footer = styled.footer`
   a:link,
   a:visited {
     color: #000;
+    font-family: "Mallory Black";
   }
 `
 
@@ -91,7 +93,10 @@ class App extends React.Component {
         <Wrap>
           <Brand>
             <img src={require("./assets/logo-blue.svg")} />
-            <h1>The Village Map</h1>
+            <Link to="/">The Village Map</Link>
+          </Brand>
+          <Brand style={{ left: 190 }}>
+            <Link to="/faqs">About</Link>
           </Brand>
           <Route
             path="/p/:placeId"
