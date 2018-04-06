@@ -16,3 +16,15 @@ ReactDOM.render(
   </ApolloProvider>,
   document.getElementById("root"),
 )
+
+if (module.hot) {
+  module.hot.accept("./App", () => {
+    const NextApp = require("./App").default
+    ReactDOM.render(
+      <ApolloProvider client={client}>
+        <NextApp />
+      </ApolloProvider>,
+      document.getElementById("root"),
+    )
+  })
+}

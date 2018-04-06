@@ -52,6 +52,10 @@ class App extends React.Component {
                   onSelectPlace={placeId => history.push(`/p/${placeId}`)}
                 />
                 <Dock
+                  dockStyle={{
+                    backgroundColor: "#303541",
+                    color: "white",
+                  }}
                   position="right"
                   size={window.innerWidth < 480 ? 0.9 : 400}
                   fluid={window.innerWidth < 480}
@@ -61,10 +65,14 @@ class App extends React.Component {
                 </Dock>
                 <Footer>
                   Built by{" "}
-                  <a href="https://www.pathwright.com">
+                  <a href="https://www.pathwright.com" target="_blank">
                     The Pathwright Crew
                   </a>{" "}
-                  for <a href="https://goodfour.us">Good Four</a> 2018
+                  for{" "}
+                  <a href="https://goodfour.us" target="_blank">
+                    Good Four
+                  </a>{" "}
+                  2018
                 </Footer>
               </Container>
             )}

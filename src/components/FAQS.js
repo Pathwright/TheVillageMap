@@ -1,7 +1,6 @@
 import React from "react"
 import gql from "graphql-tag"
 import { compose, graphql } from "react-apollo"
-import withData from "../lib/apollo"
 
 const FAQ = ({ id, question, answer }) => {
   return (
@@ -37,18 +36,15 @@ const FAQS = props => {
   ) : null
 }
 
-export default compose(
-  withData,
-  graphql(
-    gql`
-      query {
-        FAQS {
-          id
-          question
-          answer
-        }
+export default graphql(
+  gql`
+    query {
+      FAQS {
+        id
+        question
+        answer
       }
-    `,
-    {},
-  ),
+    }
+  `,
+  {},
 )(FAQS)
