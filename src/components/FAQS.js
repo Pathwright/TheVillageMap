@@ -1,6 +1,7 @@
 import React from "react"
 import gql from "graphql-tag"
 import styled from "styled-components"
+import ReactMarkdown from "react-markdown"
 import { compose, graphql } from "react-apollo"
 
 const Center = styled.div`
@@ -12,8 +13,11 @@ const Center = styled.div`
 `
 
 const Container = styled.div`
+  a {
+    color: #97cc68;
+  }
   padding: 20px;
-  div {
+  > div {
     padding: 20px;
     margin-bottom: 10px;
     border-radius: 10px;
@@ -30,7 +34,7 @@ const Container = styled.div`
     margin-bottom: 10px;
     font-family: "Mallory Black";
   }
-  p {
+  div > p {
     margin: 0;
   }
 `
@@ -39,7 +43,9 @@ const FAQ = ({ id, question, answer }) => {
   return (
     <div>
       <h3>{question}</h3>
-      <p>{answer}</p>
+      <div>
+        <ReactMarkdown source={answer} />
+      </div>
     </div>
   )
 }
@@ -75,7 +81,7 @@ export default graphql(
     props: ({ data }) => ({
       error: data.error,
       loading: data.loading,
-      faqs: data.FAQS || [],
-    }),
-  },
+      faqs: data.FAQS || []
+    })
+  }
 )(FAQS)
