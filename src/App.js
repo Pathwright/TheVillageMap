@@ -11,7 +11,7 @@ import {
   FAQS,
   Map,
   Place,
-  SideBar,
+  SideBar
 } from "./components"
 import Dock from "react-dock"
 
@@ -24,9 +24,11 @@ const Wrap = styled.div`
 const Brand = styled.div`
   position: absolute;
   z-index: 10;
-  left: 4px;
-  top: 4px;
-  padding: 5px;
+  left: -4px;
+  top: -4px;
+  padding: 4px 8px;
+  padding-top: 8px;
+  padding-left: 12px;
   background-color: #97cc68;
   display: flex;
   align-items: center;
@@ -69,7 +71,7 @@ const Footer = styled.footer`
 
 class App extends React.Component {
   state = {
-    showIntro: false,
+    showIntro: false
   }
 
   componentWillMount() {
