@@ -4,6 +4,7 @@ import { graphql } from "react-apollo"
 import Carousel from "nuka-carousel"
 import styled from "styled-components"
 import moment from "moment"
+import { Button } from "./ui"
 
 const Loading = styled.div`
   width: 100%;
@@ -40,10 +41,10 @@ const SideBarContainer = styled.div`
   .story-button {
     display: block;
     color: #303541;
-    font-weight: bold;
+    font-family: "Mallory Black";
     text-align: center;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 2px;
     background-color: #97cc68;
     text-decoration: none;
   }
@@ -156,12 +157,15 @@ const Place = ({ error, loading, place }) => {
       <SideBarContainer>
         <Carousel>
           {place.images.map(image => (
-            <CarouselImage src={image.url} key={image.url} />
+            <CarouselImage src={image.thumb} key={image.thumb} />
           ))}
         </Carousel>
         <div className="content-wrapper">
           <h1 className="place-name">{place.name}</h1>
           <p className="place-address">{place.address}</p>
+          {place.description ? (
+            <p className="place-description">{place.description}</p>
+          ) : null}
           <div className="stories">@stories</div>
           <div className="stories-wrapper">
             {place.stories.length > 0 &&
@@ -221,6 +225,7 @@ export default graphql(
           filename
           size
           type
+          thumb(options: { width: 500, height: 320, sat: -100 })
         }
         stories {
           title
@@ -246,12 +251,12 @@ export default graphql(
   `,
   {
     options: ({ id }) => ({
-      variables: { id },
+      variables: { id }
     }),
     props: ({ data }) => ({
       error: data.error,
       loading: data.loading,
-      place: data.Place,
-    }),
-  },
+      place: data.Place
+    })
+  }
 )(Place)

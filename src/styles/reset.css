@@ -1,0 +1,274 @@
+/*--------------------------------------------------------------
+MALLORY FONTS (Mallory normal) - AM
+--------------------------------------------------------------*/
+
+@import url("https://fonts.googleapis.com/css?family=Overpass+Mono");
+
+@font-face {
+  font-family: "Mallory Thin";
+  src: url("./fonts/MalloryWebFinal/mallory-thin-webfont.woff2") format("woff2"),
+    url("./fonts/MalloryWebFinal/mallory-thin-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Mallory Thin Italic";
+  src: url("./fonts/MalloryWebFinal/mallory-thinitalic-webfont.woff2")
+      format("woff2"),
+    url("./fonts/MalloryWebFinal/mallory-thinitalic-webfont.woff")
+      format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Mallory Extra Light";
+  src: url("./fonts/MalloryWebFinal/mallory-extralight-webfont.woff2")
+      format("woff2"),
+    url("./fonts/MalloryWebFinal/mallory-extralight-webfont.woff")
+      format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Mallory Extra Light Italic";
+  src: url("./fonts/MalloryWebFinal/mallory-extralightitalic-webfont.woff2")
+      format("woff2"),
+    url("./fonts/MalloryWebFinal/mallory-extralightitalic-webfont.woff")
+      format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Mallory Light";
+  src: url("./fonts/MalloryWebFinal/mallory-light-webfont.woff2")
+      format("woff2"),
+    url("./fonts/MalloryWebFinal/mallory-light-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Mallory Light Italic";
+  src: url("./fonts/MalloryWebFinal/mallory-lightitalic-webfont.woff2")
+      format("woff2"),
+    url("./fonts/MalloryWebFinal/mallory-lightitalic-webfont.woff")
+      format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Mallory Book";
+  src: url("./fonts/MalloryWebFinal/mallory-book-webfont.woff2") format("woff2"),
+    url("./fonts/MalloryWebFinal/mallory-book-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Mallory Book Italic";
+  src: url("./fonts/MalloryWebFinal/mallory-bookitalic-webfont.woff2")
+      format("woff2"),
+    url("./fonts/MalloryWebFinal/mallory-bookitalic-webfont.woff")
+      format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Mallory Medium";
+  src: url("./fonts/MalloryWebFinal/mallory-medium-webfont.woff2")
+      format("woff2"),
+    url("./fonts/MalloryWebFinal/mallory-medium-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Mallory Medium Italic";
+  src: url("./fonts/MalloryWebFinal/mallory-mediumitalic-webfont.woff2")
+      format("woff2"),
+    url("./fonts/MalloryWebFinal/mallory-mediumitalic-webfont.woff")
+      format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Mallory Bold";
+  src: url("./fonts/MalloryWebFinal/mallory-bold-webfont.woff2") format("woff2"),
+    url("./fonts/MalloryWebFinal/mallory-bold-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Mallory Bold Italic";
+  src: url("./fonts/MalloryWebFinal/mallory-bolditalic-webfont.woff2")
+      format("woff2"),
+    url("./fonts/MalloryWebFinal/mallory-bolditalic-webfont.woff")
+      format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Mallory Black";
+  src: url("./fonts/MalloryWebFinal/mallory-black-webfont.woff2")
+      format("woff2"),
+    url("./fonts/MalloryWebFinal/mallory-black-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Mallory Black Italic";
+  src: url("./fonts/MalloryWebFinal/mallory-blackitalic-webfont.woff2")
+      format("woff2"),
+    url("./fonts/MalloryWebFinal/mallory-blackitalic-webfont.woff")
+      format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Mallory Ultra";
+  src: url("./fonts/MalloryWebFinal/mallory-ultra-webfont.woff2")
+      format("woff2"),
+    url("./fonts/MalloryWebFinal/mallory-ultra-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Mallory Ultra Italic";
+  src: url("./fonts/MalloryWebFinal/mallory-ultraitalic-webfont.woff2")
+      format("woff2"),
+    url("./fonts/MalloryWebFinal/mallory-ultraitalic-webfont.woff")
+      format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/*--------------------------------------------------------------
+MALLORY FONTS (Mallory microplus) - AM
+--------------------------------------------------------------*/
+
+@font-face {
+  font-family: "Mallory MP Light";
+  src: url("./fonts/MalloryWebFinal/mallorymp-light-webfont.woff2")
+      format("woff2"),
+    url("./fonts/MalloryWebFinal/mallorymp-light-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Mallory MP Light Italic";
+  src: url("./fonts/MalloryWebFinal/mallorymp-lightitalic-webfont.woff2")
+      format("woff2"),
+    url("./fonts/MalloryWebFinal/mallorymp-lightitalic-webfont.woff")
+      format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Mallory MP Book";
+  src: url("./fonts/MalloryWebFinal/mallorymp-book-webfont.woff2")
+      format("woff2"),
+    url("./fonts/MalloryWebFinal/mallorymp-book-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Mallory MP Book Italic";
+  src: url("./fonts/MalloryWebFinal/mallorymp-bookitalic-webfont.woff2")
+      format("woff2"),
+    url("./fonts/MalloryWebFinal/mallorymp-bookitalic-webfont.woff")
+      format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Mallory MP Medium";
+  src: url("./fonts/MalloryWebFinal/mallorymp-medium-webfont.woff2")
+      format("woff2"),
+    url("./fonts/MalloryWebFinal/mallorymp-medium-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Mallory MP Medium Italic";
+  src: url("./fonts/MalloryWebFinal/mallorymp-mediumitalic-webfont.woff2")
+      format("woff2"),
+    url("./fonts/MalloryWebFinal/mallorymp-mediumitalic-webfont.woff")
+      format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Mallory MP Bold";
+  src: url("./fonts/MalloryWebFinal/mallorymp-bold-webfont.woff2")
+      format("woff2"),
+    url("./fonts/MalloryWebFinal/mallorymp-bold-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Mallory MP Bold Italic";
+  src: url("./fonts/MalloryWebFinal/mallorymp-bolditalic-webfont.woff2")
+      format("woff2"),
+    url("./fonts/MalloryWebFinal/mallorymp-bolditalic-webfont.woff")
+      format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Mallory MP Black";
+  src: url("./fonts/MalloryWebFinal/mallorymp-black-webfont.woff2")
+      format("woff2"),
+    url("./fonts/MalloryWebFinal/mallorymp-black-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Mallory MP Black Italic";
+  src: url("./fonts/MalloryWebFinal/mallorymp-blackitalic-webfont.woff2")
+      format("woff2"),
+    url("./fonts/MalloryWebFinal/mallorymp-blackitalic-webfont.woff")
+      format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Mallory Book", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a,
+a:link,
+a:visted,
+a:hover {
+  color: #fff !important;
+  text-decoration: none;
+}

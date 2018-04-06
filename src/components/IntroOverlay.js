@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components"
+import { Button } from "./ui"
 
 const Modal = styled.div`
   position: absolute;
@@ -10,6 +11,9 @@ const Modal = styled.div`
   color: white;
   padding: 50px 20px;
   background-color: rgba(48, 53, 65, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
 const Content = styled.div`
@@ -17,6 +21,9 @@ const Content = styled.div`
   max-width: 500px;
   margin: 0 auto;
   text-align: center;
+  text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+  background-color: #3c424f;
+  padding: 40px;
 
   p {
     font-size: 18px;
@@ -28,10 +35,10 @@ const IntroOverlay = ({ onClose }) => {
   return (
     <Modal>
       <Content>
-        <h1>Welcome!</h1>
+        <h1 style={{ marginTop: 0 }}>Welcome!</h1>
         <p>
           The Village Map is a place to explore and record the history of The
-          Village of West Greenville.{" "}
+          Village of West Greenville.
         </p>
         <p>
           The Village, as we like to call it, is changing quickly. We hope that
@@ -43,7 +50,7 @@ const IntroOverlay = ({ onClose }) => {
           We're looking for more stories to share so don't hesitate to submit a
           story. Just click the map to start.
         </p>
-        <button onClick={onClose}>Enter Site</button>
+        <Button onClick={onClose}>Enter</Button>
       </Content>
     </Modal>
   )

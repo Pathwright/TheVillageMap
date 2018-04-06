@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components"
 
 const Box = styled.div`
-  padding: 10px;
+  padding: 20px;
   background-color: #303541;
   color: white;
 
@@ -44,10 +44,14 @@ const NewPlace = ({ latLng, onClose }) => {
       <Circle />
       <h2>Submit a story for this location?</h2>
       <footer>
-        <a target="_blank" href={formUrl}>
+        <a target="_blank" href={formUrl} style={{ color: "#97cc68" }}>
           Yes
         </a>
-        <a href="javascript:void()" onClick={onClose}>
+        <a
+          href="javascript:void()"
+          onClick={onClose}
+          style={{ color: "rgba(255,255,255,.6)" }}
+        >
           Cancel
         </a>
       </footer>
