@@ -14,8 +14,12 @@ const Wrap = styled.div`
   header {
     position: absolute;
     z-index: 10;
-    padding: 10px;
+    left: -4px;
+    top: -4px;
+
     h1 {
+      position: relative;
+
       font-size: 16px;
       font-family: "Mallory Black";
       margin: 0px;

@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components"
+import { Button } from "./ui"
 
 const SideBarContainer = styled.div`
   background-color: #303541;
@@ -47,9 +48,9 @@ const SideBarContainer = styled.div`
 `
 
 const SideBar = props => {
-  console.log("SideBar: ", props)
   return (
     <SideBarContainer>
+      <Button style={{ zIndex: 100 }}>X</Button>
       <div className="header">
         <img src={props.props.images[0].url} />
       </div>

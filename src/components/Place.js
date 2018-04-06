@@ -153,6 +153,8 @@ const Place = ({ error, loading, place }) => {
     formUrl += "&prefill_Latitude=" + place.latitude
     formUrl += "&prefill_Longitude=" + place.longitude
 
+    console.log("Date?", place)
+
     return (
       <SideBarContainer>
         <Carousel>
@@ -169,31 +171,34 @@ const Place = ({ error, loading, place }) => {
           <div className="stories">@stories</div>
           <div className="stories-wrapper">
             {place.stories.length > 0 &&
-              place.stories.map((story, id) => (
-                <div className="story" key={id}>
-                  <div className="story-line" />
-                  <div className="story-indicator" />
-                  <h3 className="story-title">{story.title}</h3>
-                  <p className="story-date">
-                    {moment(story.startDate).format("MMMM Do, YYYY")}
-                  </p>
-                  <p>{story.story}</p>
-                  {story.people.map((person, id) => {
-                    return (
-                      <div className="person" key={id}>
-                        <img src={person.image[0].url} />
-                        <div className="story-text">
-                          <h4>{person.name}</h4>
-                          <p>{story.story}</p>
+              place.stories.map((story, id) => {
+                console.log("story.startDate", story.startDate)
+                return (
+                  <div className="story" key={id}>
+                    <div className="story-line" />
+                    <div className="story-indicator" />
+                    <h3 className="story-title">{story.title}</h3>
+                    <p className="story-date">
+                      {moment(story.startDate).format("YYYY")}
+                    </p>
+                    <p>{story.story}</p>
+                    {story.people.map((person, id) => {
+                      return (
+                        <div className="person" key={id}>
+                          <img src={person.image[0].thumb} />
+                          <div className="story-text">
+                            <h4>{person.name}</h4>
+                            <p>{story.story}</p>
+                          </div>
                         </div>
-                      </div>
-                    )
-                  })}
-                  {story.sourceUrl ? (
-                    <a href={story.sourceUrl}>Source</a>
-                  ) : null}
-                </div>
-              ))}
+                      )
+                    })}
+                    {story.sourceUrl ? (
+                      <a href={story.sourceUrl}>Source</a>
+                    ) : null}
+                  </div>
+                )
+              })}
           </div>
           {place.stories.length === 0 && (
             <div className="story-blank">No stories yet...</div>
@@ -230,19 +235,13 @@ export default graphql(
         stories {
           title
           story
+          startDate
           people {
             name
             bio
             image {
-              url
-              filename
-              size
-              type
+              thumb(options: { width: 250, height: 250, sat: -100 })
             }
-          }
-          startDate
-          source {
-            id
           }
           sourceUrl
         }
