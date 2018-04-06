@@ -34,7 +34,7 @@ const Container = styled.div`
   box-shadow: rgba(0, 0, 0, 0.19) 8px 12px 40px,
     rgba(0, 0, 0, 0.23) 8px 6px 12px;
 `
-const Footer = styled.div`
+const Footer = styled.footer`
   text-align: center;
   width: 100%;
   height: 40px;
@@ -42,6 +42,11 @@ const Footer = styled.div`
   position: absolute;
   bottom: 0px;
   left: 0px;
+  a,
+  a:link,
+  a:visited {
+    color: #000;
+  }
 `
 
 class App extends React.Component {
