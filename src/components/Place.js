@@ -7,7 +7,7 @@ import styled from "styled-components"
 import moment from "moment"
 import { Button } from "./ui"
 
-const Loading = styled.div`
+const Center = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
@@ -117,6 +117,12 @@ const SideBarContainer = styled.div`
     margin: 0;
     color: #6a7384;
   }
+  .story-source {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #97cc68;
+  }
   .person {
     display: flex;
     flex-direction: row;
@@ -163,11 +169,11 @@ class Place extends React.Component {
   render() {
     const { error, loading, place } = this.props
     if (error) {
-      return "An unexpected error occurred."
+      return <Center>An unexpected error occurred.</Center>
     }
 
     if (loading) {
-      return <Loading>Loading...</Loading>
+      return <Center>Loading...</Center>
     }
 
     if (place) {
@@ -294,8 +300,8 @@ export default graphql(
     }
   `,
   {
-    options: ({ id }) => ({
-      variables: { id }
+    options: ({ match }) => ({
+      variables: { id: match.params.placeId }
     }),
     props: ({ data }) => ({
       error: data.error,

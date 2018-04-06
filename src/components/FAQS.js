@@ -1,39 +1,64 @@
 import React from "react"
 import gql from "graphql-tag"
+import styled from "styled-components"
 import { compose, graphql } from "react-apollo"
+
+const Center = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
+const Container = styled.div`
+  padding: 20px;
+  div {
+    padding: 20px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background-color: #3c424f;
+  }
+  h1 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-family: "Mallory Black";
+  }
+  h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-family: "Mallory Black";
+  }
+  p {
+    margin: 0;
+  }
+`
 
 const FAQ = ({ id, question, answer }) => {
   return (
     <div>
       <h3>{question}</h3>
       <p>{answer}</p>
-      <style jsx>{`
-        div {
-          background-color: #ebe3cd;
-          color: rgba(0, 0, 0, 0.6);
-          border-radius: 5px;
-          margin-bottom: 10px;
-        }
-        h3 {
-          padding: 10px;
-          background-color: #dfd2ae;
-          border-radius: 5px 5px 0 0;
-          margin: 0;
-        }
-        p {
-          padding: 10px;
-          margin: 0;
-        }
-      `}</style>
     </div>
   )
 }
 
-const FAQS = props => {
-  console.log("props", props)
-  return props.data && props.data.FAQS ? (
-    <div>{props.data.FAQS.map(node => <FAQ {...node} />)}</div>
-  ) : null
+const FAQS = ({ error, loading, faqs }) => {
+  if (error) {
+    return <Center>An unexpected error occurred.</Center>
+  }
+
+  if (loading) {
+    return <Center>Loading...</Center>
+  }
+
+  return (
+    <Container>
+      <h1>FAQs</h1>
+      {faqs.map(faq => <FAQ key={faq.id} {...faq} />)}
+    </Container>
+  )
 }
 
 export default graphql(
@@ -46,5 +71,11 @@ export default graphql(
       }
     }
   `,
-  {},
+  {
+    props: ({ data }) => ({
+      error: data.error,
+      loading: data.loading,
+      faqs: data.FAQS || [],
+    }),
+  },
 )(FAQS)

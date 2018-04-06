@@ -23,6 +23,7 @@ class Map extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log(nextProps.activePlaceId)
     if (nextProps.activePlaceId) {
       if (
         nextProps.activePlaceId !== this.props.activePlaceId ||
@@ -44,7 +45,6 @@ class Map extends React.Component {
   }
 
   render() {
-    const { places, onSelectPlace, onSuggestPlace } = this.props
     return (
       <div style={{ transform: "translate3d(0,0,0,)" }}>
         <GoogleMap
@@ -54,12 +54,12 @@ class Map extends React.Component {
           defaultCenter={VILLAGE_MAP_CENTER}
           defaultOptions={{ styles: mapStyles, disableDefaultUI: true }}
         >
-          {places.map(place => (
+          {this.props.places.map(place => (
             <Marker
               key={place.id}
               onClick={() => {
                 this.setState({ suggestingLatLng: null })
-                onSelectPlace(place.id)
+                this.props.onSelectPlace(place.id)
               }}
               icon={{
                 path: google.maps.SymbolPath.CIRCLE,
@@ -120,9 +120,9 @@ const ConnectedMap = compose(withPlaces, withScriptjs, withGoogleMap)(Map)
 
 ConnectedMap.defaultProps = {
   googleMapURL: `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&v=3.exp&libraries=geometry,drawing`,
-  containerElement: <div style={{ height: `100vh` }} />,
-  loadingElement: <div style={{ height: `100%` }} />,
-  mapElement: <div style={{ height: `100%` }} />
+  containerElement: <div style={{ height: `100vh`, width: "100%" }} />,
+  loadingElement: <div style={{ height: `100%`, width: "100%" }} />,
+  mapElement: <div style={{ height: `100%`, width: "100%" }} />
 }
 
 export default ConnectedMap
