@@ -194,7 +194,9 @@ const Place = ({ error, loading, place }) => {
                       )
                     })}
                     {story.sourceUrl ? (
-                      <a href={story.sourceUrl}>Source</a>
+                      <a href={story.sourceUrl} target="_blank">
+                        Source
+                      </a>
                     ) : null}
                   </div>
                 )
