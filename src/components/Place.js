@@ -37,6 +37,16 @@ const SideBarContainer = styled.div`
   a {
     color: #97cc68;
   }
+  .story-button {
+    display: block;
+    color: #303541;
+    font-weight: bold;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #97cc68;
+    text-decoration: none;
+  }
   .stories {
     margin-top: 20px;
     margin-bottom: 10px;
@@ -118,6 +128,13 @@ const SideBarContainer = styled.div`
       margin: 0;
     }
   }
+  .story-blank {
+    position: relative;
+    padding: 20px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background-color: #3c424f;
+  }
 `
 
 const Place = ({ error, loading, place }) => {
@@ -130,6 +147,11 @@ const Place = ({ error, loading, place }) => {
   }
 
   if (place) {
+    let formUrl = "https://airtable.com/shrFV5fChBDr5FDxB"
+    formUrl += "?prefill_Location=" + place.address
+    formUrl += "&prefill_Latitude=" + place.latitude
+    formUrl += "&prefill_Longitude=" + place.longitude
+
     return (
       <SideBarContainer>
         <Carousel>
@@ -142,7 +164,7 @@ const Place = ({ error, loading, place }) => {
           <p className="place-address">{place.address}</p>
           <div className="stories">@stories</div>
           <div className="stories-wrapper">
-            {place.stories.length > 0 ? (
+            {place.stories.length > 0 &&
               place.stories.map((story, id) => (
                 <div className="story" key={id}>
                   <div className="story-line" />
@@ -167,11 +189,14 @@ const Place = ({ error, loading, place }) => {
                     <a href={story.sourceUrl}>Source</a>
                   ) : null}
                 </div>
-              ))
-            ) : (
-              "No Story Available"
-            )}
+              ))}
           </div>
+          {place.stories.length === 0 && (
+            <div className="story-blank">No stories yet...</div>
+          )}
+          <a className="story-button" href={formUrl} target="_blank">
+            Suggest a story
+          </a>
         </div>
       </SideBarContainer>
     )
