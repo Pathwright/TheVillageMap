@@ -1,6 +1,7 @@
 import React from "react"
 import gql from "graphql-tag"
 import { graphql } from "react-apollo"
+import { Link } from "react-router-dom"
 import Carousel from "nuka-carousel"
 import pluralize from "pluralize"
 import styled from "styled-components"
@@ -177,7 +178,7 @@ class Place extends React.Component {
     }
 
     if (place) {
-      let formUrl = "https://airtable.com/shrFV5fChBDr5FDxB"
+      let formUrl = "/suggest"
       formUrl += "?prefill_Location=" + place.address
       formUrl += "&prefill_Latitude=" + place.latitude
       formUrl += "&prefill_Longitude=" + place.longitude
@@ -203,24 +204,26 @@ class Place extends React.Component {
             ) : null}
             <div className="story-prompt">
               <p style={{ textAlign: "center" }}>
-                Know something about {place.name}?
+                Know something about<br /> {place.name}?
               </p>
-              <a className="story-button" href={formUrl} target="_blank">
+              <Link className="story-button" to={formUrl}>
                 Suggest a story
-              </a>
+              </Link>
             </div>
 
-            <div className="stories">
-              <span
-                style={{
-                  display: "inline-block",
-                  textAlign: "center",
-                  width: 20,
-                }}>
-                {stories.length}
-              </span>
-              {pluralize("story", stories.length, false)} so far
-            </div>
+            {stories.length ? (
+              <div className="stories">
+                <span
+                  style={{
+                    display: "inline-block",
+                    textAlign: "center",
+                    width: 20,
+                  }}>
+                  {stories.length}
+                </span>
+                {pluralize("story", stories.length, false)} so far
+              </div>
+            ) : null}
             <div className="stories-wrapper">
               {stories.length > 0 &&
                 stories.map((story, id) => {
@@ -253,9 +256,6 @@ class Place extends React.Component {
                   )
                 })}
             </div>
-            {place.stories.length === 0 && (
-              <div className="story-blank">No stories yet</div>
-            )}
           </div>
         </SideBarContainer>
       )

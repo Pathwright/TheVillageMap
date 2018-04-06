@@ -24,7 +24,8 @@ const Content = styled.div`
   text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
   background-color: #3c424f;
   padding: 40px;
-
+  box-shadow: rgba(0, 0, 0, 0.19) 8px 12px 40px,
+    rgba(0, 0, 0, 0.23) 8px 6px 12px;
   p {
     font-size: 18px;
     line-height: 1.3em;
@@ -35,22 +36,23 @@ const IntroOverlay = ({ onClose }) => {
   return (
     <Modal>
       <Content>
+        <img src={require("../assets/logo-green.svg")} style={{ width: 80 }} />
         <h1 style={{ marginTop: 0 }}>Welcome!</h1>
         <p>
           The Village Map is a place to explore and record the history of The
           Village of West Greenville.
         </p>
         <p>
-          The Village, as we like to call it, is changing quickly. We hope that
-          by telling some of the stories behind the places where we work and
-          live, we can preserve the heritage that got us to where we are now
-          appreciate more deeply the environment we work and play in.
+          The Village is changing quickly. We hope that by telling some of the
+          stories behind the places where we work and live, we can preserve the
+          heritage that led us to where we are now and appreciate more deeply
+          the environment we live, work, and play in.
         </p>
         <p>
-          We're looking for more stories to share so don't hesitate to submit a
-          story. Just click the map to start.
+          We're looking for more stories to tell so please use this map to share
+          any stories you have about The Village.
         </p>
-        <Button onClick={onClose}>Enter</Button>
+        <Button onClick={onClose}>View The Village Map</Button>
       </Content>
     </Modal>
   )

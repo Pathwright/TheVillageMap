@@ -34,7 +34,7 @@ const Circle = styled.div`
 `
 
 const NewPlace = ({ latLng, onClose, onSubmit }) => {
-  let formUrl = "/submit"
+  let formUrl = "/suggest"
   formUrl += "?prefill_Latitude=" + latLng.lat()
   formUrl += "&prefill_Longitude=" + latLng.lng()
 

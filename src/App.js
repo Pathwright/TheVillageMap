@@ -19,24 +19,29 @@ const Wrap = styled.div`
   width: 100%;
   height: 100%;
   background-color: #97cc68;
-  header {
-    position: absolute;
-    z-index: 10;
-    left: -4px;
-    top: -4px;
+`
 
-    h1 {
-      position: relative;
+const Brand = styled.div`
+  position: absolute;
+  z-index: 10;
+  left: 4px;
+  top: 4px;
+  padding: 5px;
+  background-color: #97cc68;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  img {
+    width: 30px;
+  }
+  h1 {
+    position: relative;
+    font-size: 16px;
+    font-family: "Mallory Black";
+    margin: 0px 5px;
+    color: #303541;
 
-      font-size: 16px;
-      font-family: "Mallory Black";
-      margin: 0px;
-      text-align: center;
-      padding: 5px 10px;
-      color: #303541;
-      /* border-radius: 8px; */
-      background-color: #97cc68;
-    }
+    /* border-radius: 8px; */
   }
 `
 
@@ -84,9 +89,10 @@ class App extends React.Component {
     return (
       <Router>
         <Wrap>
-          <header>
+          <Brand>
+            <img src={require("./assets/logo-blue.svg")} />
             <h1>The Village Map</h1>
-          </header>
+          </Brand>
           <Route
             path="/p/:placeId"
             children={({ match, history }) => (
@@ -99,7 +105,7 @@ class App extends React.Component {
           />
           <DockRoute path="/p/:placeId" component={Place} />
           <DockRoute path="/faqs" component={FAQS} />
-          <DockRoute path="/submit" component={AirtableFormEmbed} />
+          <DockRoute path="/suggest" component={AirtableFormEmbed} />
           <Footer>
             Built by{" "}
             <a href="https://www.pathwright.com" target="_blank">
