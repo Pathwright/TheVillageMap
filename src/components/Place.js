@@ -138,82 +138,100 @@ const SideBarContainer = styled.div`
   }
 `
 
-const Place = ({ error, loading, place }) => {
-  if (error) {
-    return "An unexpected error occurred."
-  }
-
-  if (loading) {
-    return <Loading>Loading...</Loading>
-  }
-
-  if (place) {
-    let formUrl = "https://airtable.com/shrFV5fChBDr5FDxB"
-    formUrl += "?prefill_Location=" + place.address
-    formUrl += "&prefill_Latitude=" + place.latitude
-    formUrl += "&prefill_Longitude=" + place.longitude
-
-    console.log("Date?", place)
-
-    return (
-      <SideBarContainer>
-        <Carousel>
-          {place.images.map(image => (
-            <CarouselImage src={image.thumb} key={image.thumb} />
-          ))}
-        </Carousel>
-        <div className="content-wrapper">
-          <h1 className="place-name">{place.name}</h1>
-          <p className="place-address">{place.address}</p>
-          {place.description ? (
-            <p className="place-description">{place.description}</p>
-          ) : null}
-          <div className="stories">@stories</div>
-          <div className="stories-wrapper">
-            {place.stories.length > 0 &&
-              place.stories.map((story, id) => {
-                console.log("story.startDate", story.startDate)
-                return (
-                  <div className="story" key={id}>
-                    <div className="story-line" />
-                    <div className="story-indicator" />
-                    <h3 className="story-title">{story.title}</h3>
-                    <p className="story-date">
-                      {moment(story.startDate).format("YYYY")}
-                    </p>
-                    <p>{story.story}</p>
-                    {story.people.map((person, id) => {
-                      return (
-                        <div className="person" key={id}>
-                          <img src={person.image[0].thumb} />
-                          <div className="story-text">
-                            <h4>{person.name}</h4>
-                            <p>{story.story}</p>
-                          </div>
-                        </div>
-                      )
-                    })}
-                    {story.sourceUrl ? (
-                      <a href={story.sourceUrl} target="_blank">
-                        Source
-                      </a>
-                    ) : null}
-                  </div>
-                )
-              })}
-          </div>
-          {place.stories.length === 0 && (
-            <div className="story-blank">No stories yet...</div>
-          )}
-          <a className="story-button" href={formUrl} target="_blank">
-            Suggest a story
-          </a>
-        </div>
-      </SideBarContainer>
+class Place extends React.Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.error !== this.props.error) return true
+    if (nextProps.loading !== this.props.loading) return true
+    if (
+      nextProps.place &&
+      this.props.place &&
+      nextProps.place.id !== this.props.place.id
     )
+      return true
+    return false
   }
 
-  return null
+  render() {
+    const { error, loading, place } = this.props
+    if (error) {
+      return "An unexpected error occurred."
+    }
+
+    if (loading) {
+      return <Loading>Loading...</Loading>
+    }
+
+    if (place) {
+      let formUrl = "https://airtable.com/shrFV5fChBDr5FDxB"
+      formUrl += "?prefill_Location=" + place.address
+      formUrl += "&prefill_Latitude=" + place.latitude
+      formUrl += "&prefill_Longitude=" + place.longitude
+
+      const stories = [...place.stories].sort((a, b) => {
+        return new Date(a.startDate).getTime() < new Date(b.startDate).getTime()
+          ? -1
+          : 1
+      })
+
+      return (
+        <SideBarContainer>
+          <Carousel>
+            {place.images.map(image => (
+              <CarouselImage src={image.thumb} key={image.thumb} />
+            ))}
+          </Carousel>
+          <div className="content-wrapper">
+            <h1 className="place-name">{place.name}</h1>
+            <p className="place-address">{place.address}</p>
+            {place.description ? (
+              <p className="place-description">{place.description}</p>
+            ) : null}
+            <div className="stories">@stories</div>
+            <div className="stories-wrapper">
+              {stories.length > 0 &&
+                stories.map((story, id) => {
+                  return (
+                    <div className="story" key={id}>
+                      <div className="story-line" />
+                      <div className="story-indicator" />
+                      <h3 className="story-title">{story.title}</h3>
+                      <p className="story-date">
+                        {moment(story.startDate).format("YYYY")}
+                      </p>
+                      <p>{story.story}</p>
+                      {story.people.map((person, id) => {
+                        return (
+                          <div className="person" key={id}>
+                            <img src={person.image[0].thumb} />
+                            <div className="story-text">
+                              <h4>{person.name}</h4>
+                              <p>{story.story}</p>
+                            </div>
+                          </div>
+                        )
+                      })}
+                      {story.sourceUrl ? (
+                        <a href={story.sourceUrl} target="_blank">
+                          Source
+                        </a>
+                      ) : null}
+                    </div>
+                  )
+                })}
+            </div>
+            {place.stories.length === 0 && (
+              <div className="story-blank">No stories yet...</div>
+            )}
+            <a className="story-button" href={formUrl} target="_blank">
+              Suggest a story
+            </a>
+          </div>
+        </SideBarContainer>
+      )
+    }
+
+    return null
+  }
 }
 
 export default graphql(
