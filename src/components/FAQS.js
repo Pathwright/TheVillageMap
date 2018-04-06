@@ -12,16 +12,23 @@ const Center = styled.div`
 `
 
 const Container = styled.div`
-  padding: 10px;
+  padding: 20px;
   div {
     padding: 20px;
     margin-bottom: 10px;
     border-radius: 10px;
     background-color: #3c424f;
   }
+  h1 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-family: "Mallory Black";
+  }
   h3 {
     margin-top: 0;
     margin-bottom: 10px;
+    font-family: "Mallory Black";
   }
   p {
     margin: 0;
@@ -46,7 +53,12 @@ const FAQS = ({ error, loading, faqs }) => {
     return <Center>Loading...</Center>
   }
 
-  return <Container>{faqs.map(faq => <FAQ key={faq.id} {...faq} />)}</Container>
+  return (
+    <Container>
+      <h1>FAQs</h1>
+      {faqs.map(faq => <FAQ key={faq.id} {...faq} />)}
+    </Container>
+  )
 }
 
 export default graphql(

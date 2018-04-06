@@ -19,6 +19,7 @@ class Map extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log(nextProps.activePlaceId)
     if (nextProps.activePlaceId) {
       if (
         nextProps.activePlaceId !== this.props.activePlaceId ||

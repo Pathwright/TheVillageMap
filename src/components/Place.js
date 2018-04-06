@@ -2,8 +2,10 @@ import React from "react"
 import gql from "graphql-tag"
 import { graphql } from "react-apollo"
 import Carousel from "nuka-carousel"
+import pluralize from "pluralize"
 import styled from "styled-components"
 import moment from "moment"
+import { Button } from "./ui"
 
 const Center = styled.div`
   width: 100%;
@@ -29,6 +31,7 @@ const SideBarContainer = styled.div`
   }
   .place-name {
     margin: 0;
+    font-family: "Mallory Black";
   }
   .place-address {
     margin: 0;
@@ -38,14 +41,18 @@ const SideBarContainer = styled.div`
     color: #97cc68;
   }
   .story-button {
-    font-size: 18px;
-    font-weight: bold;
+    display: block;
+    color: #303541;
+    font-family: "Mallory Black";
+    text-align: center;
+    padding: 10px;
+    border-radius: 2px;
+    background-color: #97cc68;
+    text-decoration: none;
   }
   .stories {
     margin-top: 20px;
     margin-bottom: 10px;
-    text-transform: uppercase;
-    font-weight: bold;
   }
   .stories-wrapper {
     padding-left: 40px;
@@ -95,6 +102,14 @@ const SideBarContainer = styled.div`
       top: -20px;
     }
   }
+
+  .story-prompt {
+    background-color: #3c424f;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px 0px;
+  }
+
   .story-title {
     margin: 0;
   }
@@ -138,77 +153,116 @@ const SideBarContainer = styled.div`
   }
 `
 
-const Place = ({ error, loading, place }) => {
-  if (error) {
-    return <Center>An unexpected error occurred.</Center>
-  }
-
-  if (loading) {
-    return <Center>Loading...</Center>
-  }
-
-  if (place) {
-    let formUrl = "https://airtable.com/shrFV5fChBDr5FDxB"
-    formUrl += "?prefill_Location=" + place.address
-    formUrl += "&prefill_Latitude=" + place.latitude
-    formUrl += "&prefill_Longitude=" + place.longitude
-
-    return (
-      <SideBarContainer>
-        <Carousel>
-          {place.images.map(image => (
-            <CarouselImage src={image.url} key={image.url} />
-          ))}
-        </Carousel>
-        <div className="content-wrapper">
-          <h1 className="place-name">{place.name}</h1>
-          <p className="place-address">{place.address}</p>
-          <div className="stories">@stories</div>
-          <div className="stories-wrapper">
-            {place.stories.length > 0 &&
-              place.stories.map((story, id) => (
-                <div className="story" key={id}>
-                  <div className="story-line" />
-                  <div className="story-indicator" />
-                  <h3 className="story-title">{story.title}</h3>
-                  <p className="story-date">
-                    {moment(story.startDate).format("MMMM Do, YYYY")}
-                  </p>
-                  <p>{story.story}</p>
-                  {story.people.map((person, id) => {
-                    return (
-                      <div className="person" key={id}>
-                        <img src={person.image[0].url} />
-                        <div className="story-text">
-                          <h4>{person.name}</h4>
-                          <p>{story.story}</p>
-                        </div>
-                      </div>
-                    )
-                  })}
-                  {story.sourceUrl ? (
-                    <div className="story-source">
-                      Source:{" "}
-                      <a href={story.sourceUrl} target="_blank">
-                        {story.sourceUrl}
-                      </a>
-                    </div>
-                  ) : null}
-                </div>
-              ))}
-          </div>
-          {place.stories.length === 0 && (
-            <div className="story-blank">No stories yet...</div>
-          )}
-          <a className="story-button" href={formUrl} target="_blank">
-            Suggest a story
-          </a>
-        </div>
-      </SideBarContainer>
+class Place extends React.Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.error !== this.props.error) return true
+    if (nextProps.loading !== this.props.loading) return true
+    if (
+      nextProps.place &&
+      this.props.place &&
+      nextProps.place.id !== this.props.place.id
     )
+      return true
+    return false
   }
 
-  return null
+  render() {
+    const { error, loading, place } = this.props
+    if (error) {
+      return <Center>An unexpected error occurred.</Center>
+    }
+
+    if (loading) {
+      return <Center>Loading...</Center>
+    }
+
+    if (place) {
+      let formUrl = "https://airtable.com/shrFV5fChBDr5FDxB"
+      formUrl += "?prefill_Location=" + place.address
+      formUrl += "&prefill_Latitude=" + place.latitude
+      formUrl += "&prefill_Longitude=" + place.longitude
+
+      const stories = [...place.stories].sort((a, b) => {
+        return new Date(a.startDate).getTime() < new Date(b.startDate).getTime()
+          ? -1
+          : 1
+      })
+
+      return (
+        <SideBarContainer>
+          <Carousel>
+            {place.images.map(image => (
+              <CarouselImage src={image.thumb} key={image.thumb} />
+            ))}
+          </Carousel>
+          <div className="content-wrapper">
+            <h1 className="place-name">{place.name}</h1>
+            <p className="place-address">{place.address}</p>
+            {place.description ? (
+              <p className="place-description">{place.description}</p>
+            ) : null}
+            <div className="story-prompt">
+              <p style={{ textAlign: "center" }}>
+                Know something about {place.name}?
+              </p>
+              <a className="story-button" href={formUrl} target="_blank">
+                Suggest a story
+              </a>
+            </div>
+
+            <div className="stories">
+              <span
+                style={{
+                  display: "inline-block",
+                  textAlign: "center",
+                  width: 20,
+                }}>
+                {stories.length}
+              </span>
+              {pluralize("story", stories.length, false)} so far
+            </div>
+            <div className="stories-wrapper">
+              {stories.length > 0 &&
+                stories.map((story, id) => {
+                  return (
+                    <div className="story" key={id}>
+                      <div className="story-line" />
+                      <div className="story-indicator" />
+                      <h3 className="story-title">{story.title}</h3>
+                      <p className="story-date">
+                        {moment(story.startDate).format("YYYY")}
+                      </p>
+                      <p>{story.story}</p>
+                      {story.people.map((person, id) => {
+                        return (
+                          <div className="person" key={id}>
+                            <img src={person.image[0].thumb} />
+                            <div className="story-text">
+                              <h4>{person.name}</h4>
+                              <p>{story.story}</p>
+                            </div>
+                          </div>
+                        )
+                      })}
+                      {story.sourceUrl ? (
+                        <a href={story.sourceUrl} target="_blank">
+                          Source
+                        </a>
+                      ) : null}
+                    </div>
+                  )
+                })}
+            </div>
+            {place.stories.length === 0 && (
+              <div className="story-blank">No stories yet</div>
+            )}
+          </div>
+        </SideBarContainer>
+      )
+    }
+
+    return null
+  }
 }
 
 export default graphql(
@@ -227,23 +281,18 @@ export default graphql(
           filename
           size
           type
+          thumb(options: { width: 500, height: 320, sat: -100 })
         }
         stories {
           title
           story
+          startDate
           people {
             name
             bio
             image {
-              url
-              filename
-              size
-              type
+              thumb(options: { width: 250, height: 250, sat: -100 })
             }
-          }
-          startDate
-          source {
-            id
           }
           sourceUrl
         }

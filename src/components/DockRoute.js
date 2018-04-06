@@ -11,9 +11,12 @@ const DockRoute = ({ path, component: Component }) => {
           dockStyle={{
             color: "white",
             backgroundColor: "#303541",
+            WebkitOverflowScrolling: "touch",
           }}
           position="right"
-          size={window.innerWidth < 480 ? 0.9 : 0.4}
+          size={
+            window.innerWidth < 480 ? 0.9 : window.innerWidth < 768 ? 0.6 : 0.4
+          }
           isVisible={!!match}
           onVisibleChange={() => !!match && history.push("/")}>
           {match && (

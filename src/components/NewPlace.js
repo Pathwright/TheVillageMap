@@ -1,10 +1,15 @@
 import React from "react"
 import styled from "styled-components"
+import { Button } from "./ui"
 
 const Box = styled.div`
-  padding: 10px;
+  padding: 20px;
   background-color: #303541;
   color: white;
+
+  a {
+    padding: 3px;
+  }
 
   h2 {
     margin: 0;
@@ -14,12 +19,6 @@ const Box = styled.div`
   footer {
     display: flex;
     align-items: baseline;
-
-    a {
-      margin-right: 10px;
-      color: white;
-      font-size: 16px;
-    }
   }
 `
 
@@ -42,12 +41,14 @@ const NewPlace = ({ latLng, onClose }) => {
   return (
     <Box>
       <Circle />
-      <h2>Submit a story for this location?</h2>
+      <h2 style={{ marginBottom: 10 }}>Submit a story for this location?</h2>
       <footer>
-        <a target="_blank" href={formUrl}>
-          Yes
-        </a>
-        <a href="javascript:void()" onClick={onClose}>
+        <Button onClick={() => (window.location = formUrl)}>Yes</Button>
+        <a
+          href="javascript:void()"
+          onClick={onClose}
+          style={{ color: "rgba(255,255,255,.6)", marginLeft: 10 }}
+        >
           Cancel
         </a>
       </footer>

@@ -1,3 +1,4 @@
+import "./styles/reset.css"
 import React from "react"
 import gql from "graphql-tag"
 import { compose, graphql } from "react-apollo"
@@ -13,12 +14,39 @@ import {
 } from "./components"
 import Dock from "react-dock"
 
+const Wrap = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: #97cc68;
+  header {
+    position: absolute;
+    z-index: 10;
+    left: -4px;
+    top: -4px;
+
+    h1 {
+      position: relative;
+
+      font-size: 16px;
+      font-family: "Mallory Black";
+      margin: 0px;
+      text-align: center;
+      padding: 5px 10px;
+      color: #303541;
+      /* border-radius: 8px; */
+      background-color: #97cc68;
+    }
+  }
+`
+
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  position: relative;
+  > div:nth-child(2) > div:nth-child(2) {
+    -webkit-overflow-scrolling: touch;
+  }
 `
-const Footer = styled.div`
+const Footer = styled.footer`
   text-align: center;
   width: 100%;
   height: 40px;
@@ -26,6 +54,11 @@ const Footer = styled.div`
   position: absolute;
   bottom: 0px;
   left: 0px;
+  a,
+  a:link,
+  a:visited {
+    color: #000;
+  }
 `
 
 class App extends React.Component {
@@ -49,7 +82,10 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        <div>
+        <Wrap>
+          <header>
+            <h1>The Village Map</h1>
+          </header>
           <Route
             path="/p/:placeId"
             children={({ match, history }) => (
@@ -75,7 +111,7 @@ class App extends React.Component {
           {this.state.showIntro && (
             <IntroOverlay onClose={this.handleEnterSite} />
           )}
-        </div>
+        </Wrap>
       </Router>
     )
   }
