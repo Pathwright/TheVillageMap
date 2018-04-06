@@ -261,6 +261,7 @@ MALLORY FONTS (Mallory microplus) - AM
 
 body {
   font-family: "Mallory Book", sans-serif;
+  line-height: 1.4;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

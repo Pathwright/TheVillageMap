@@ -2,6 +2,7 @@ import React from "react"
 import gql from "graphql-tag"
 import { graphql } from "react-apollo"
 import Carousel from "nuka-carousel"
+import pluralize from "pluralize"
 import styled from "styled-components"
 import moment from "moment"
 import { Button } from "./ui"
@@ -30,6 +31,7 @@ const SideBarContainer = styled.div`
   }
   .place-name {
     margin: 0;
+    font-family: "Mallory Black";
   }
   .place-address {
     margin: 0;
@@ -43,7 +45,7 @@ const SideBarContainer = styled.div`
     color: #303541;
     font-family: "Mallory Black";
     text-align: center;
-    padding: 20px;
+    padding: 10px;
     border-radius: 2px;
     background-color: #97cc68;
     text-decoration: none;
@@ -51,7 +53,6 @@ const SideBarContainer = styled.div`
   .stories {
     margin-top: 20px;
     margin-bottom: 10px;
-    text-transform: uppercase;
   }
   .stories-wrapper {
     padding-left: 40px;
@@ -101,6 +102,14 @@ const SideBarContainer = styled.div`
       top: -20px;
     }
   }
+
+  .story-prompt {
+    background-color: #3c424f;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px 0px;
+  }
+
   .story-title {
     margin: 0;
   }
@@ -186,7 +195,27 @@ class Place extends React.Component {
             {place.description ? (
               <p className="place-description">{place.description}</p>
             ) : null}
-            <div className="stories">@stories</div>
+            <div className="story-prompt">
+              <p style={{ textAlign: "center" }}>
+                Know something about {place.name}?
+              </p>
+              <a className="story-button" href={formUrl} target="_blank">
+                Suggest a story
+              </a>
+            </div>
+
+            <div className="stories">
+              <span
+                style={{
+                  display: "inline-block",
+                  textAlign: "center",
+                  width: 20
+                }}
+              >
+                {stories.length}
+              </span>
+              {pluralize("story", stories.length, false)} so far
+            </div>
             <div className="stories-wrapper">
               {stories.length > 0 &&
                 stories.map((story, id) => {
@@ -220,11 +249,8 @@ class Place extends React.Component {
                 })}
             </div>
             {place.stories.length === 0 && (
-              <div className="story-blank">No stories yet...</div>
+              <div className="story-blank">No stories yet</div>
             )}
-            <a className="story-button" href={formUrl} target="_blank">
-              Suggest a story
-            </a>
           </div>
         </SideBarContainer>
       )

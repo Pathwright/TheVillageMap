@@ -81,12 +81,12 @@ class App extends React.Component {
           </header>
 
           <Route
-            path="/p/:placeId"
+            path="/place/:placeId"
             children={({ match, history }) => (
               <Container>
                 <Map
                   activePlaceId={match && match.params.placeId}
-                  onSelectPlace={placeId => history.push(`/p/${placeId}`)}
+                  onSelectPlace={placeId => history.push(`/place/${placeId}`)}
                 />
                 <Dock
                   dockStyle={{

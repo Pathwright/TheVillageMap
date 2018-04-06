@@ -7,6 +7,10 @@ const Box = styled.div`
   background-color: #303541;
   color: white;
 
+  a {
+    padding: 3px;
+  }
+
   h2 {
     margin: 0;
     font-weight: normal;
