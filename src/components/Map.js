@@ -43,6 +43,11 @@ class Map extends React.Component {
     }
   }
 
+  handleSelectMapLocation = ({ latLng }) => {
+    if (!this.state.suggestingLatLng)
+      this.setState({ suggestingLatLng: latLng })
+  }
+
   render() {
     const { activePlaceId } = this.props
 
@@ -54,7 +59,7 @@ class Map extends React.Component {
         <GoogleMap
           ref={m => (this.map = m)}
           defaultZoom={15}
-          onClick={({ latLng }) => this.setState({ suggestingLatLng: latLng })}
+          onClick={this.handleSelectMapLocation}
           defaultCenter={VILLAGE_MAP_CENTER}
           defaultOptions={{ styles: mapStyles, disableDefaultUI: true }}
         >

@@ -6,6 +6,8 @@ const Box = styled.div`
   padding: 20px;
   background-color: #303541;
   color: white;
+  position: relative;
+  z-index: 1000;
 
   a {
     padding: 3px;
@@ -42,7 +44,6 @@ const NewPlace = ({ latLng, onClose, onSubmit }) => {
     e.preventDefault()
     e.stopPropagation()
     onSubmit(formUrl)
-    onClose()
   }
 
   return (
