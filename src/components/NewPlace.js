@@ -38,16 +38,24 @@ const NewPlace = ({ latLng, onClose, onSubmit }) => {
   formUrl += "?prefill_Latitude=" + latLng.lat()
   formUrl += "&prefill_Longitude=" + latLng.lng()
 
+  const handleSelectNewPlace = e => {
+    e.preventDefault()
+    e.stopPropagation()
+    onSubmit(formUrl)
+    onClose()
+  }
+
   return (
     <Box>
       <Circle />
       <h2 style={{ marginBottom: 10 }}>Submit a story for this location?</h2>
       <footer>
-        <Button onClick={() => onSubmit(formUrl)}>Yes</Button>
+        <Button onClick={handleSelectNewPlace}>Yes</Button>
         <a
-          href="javascript:void()"
+          href="#"
           onClick={onClose}
-          style={{ color: "rgba(255,255,255,.6)", marginLeft: 10 }}>
+          style={{ color: "rgba(255,255,255,.6)", marginLeft: 10 }}
+        >
           Cancel
         </a>
       </footer>
